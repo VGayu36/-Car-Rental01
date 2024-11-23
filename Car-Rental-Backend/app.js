@@ -23,7 +23,7 @@ const bookings = require('./Routes/BookingRoutes');
 app.use('/api', userRoutes);
 app.use('/api',bookings)
 app.get("/", (req,res)=>{
-    res.send("<h1>Hello world...</h1>cd ")
+    res.send("<h1>Hello world...</h1>")
 })
 const verifyToken = require("./Middleware/AuthMiddleware");
 
