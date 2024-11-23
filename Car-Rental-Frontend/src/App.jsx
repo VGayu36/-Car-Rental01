@@ -1,4 +1,4 @@
-import "../src/dist/styles.css";
+import ".";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
 import Navbar from "../src/components/Navbar";
