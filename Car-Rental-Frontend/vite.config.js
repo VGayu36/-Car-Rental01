@@ -9,4 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'), // Sets '@' as alias for 'src'
     },
   },
+  build: {
+    outDir: 'publish', // This sets the output directory to 'publish'
+  }
 })
