@@ -1,4 +1,4 @@
-// src/components/BookCar.js
+// src/components/BookCar.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,8 @@ import CarToyota from "../images/cars-big/toyotacamry.jpg";
 import CarBmw from "../images/cars-big/bmw320.jpg";
 import CarMercedes from "../images/cars-big/benz.jpg";
 import CarPassat from "../images/cars-big/passatcc.jpg";
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const BookCar = () => {
   const [modal, setModal] = useState(false);
@@ -24,85 +26,20 @@ const BookCar = () => {
     "Chandigarh", "Jaipur", "Lucknow", "Kanpur", "Surat", "Visakhapatnam", "Indore",
     "Coimbatore", "Madurai", "Patna", "Vadodara", "Nasik", "Bhopal", "Delhi", "Noida", 
     "Gurugram", "Amritsar", "Agra", "Ranchi", "Trivandrum", "Vijayawada", "Rajkot", "Bodhgaya"
-];
+  ];
 
-const cityCostMap = {
+  const cityCostMap = {
+    // Your city cost mapping
     "Mumbai-Bangalore": 8000,
-    "Mumbai-Kolkata": 12000,
-    "Mumbai-Chennai": 9500,
-    "Mumbai-Hyderabad": 7000,
-    "Mumbai-Pune": 1500,
-    "Mumbai-Ahmedabad": 3000,
-    "Bangalore-Chennai": 3100,
-    "Bangalore-Hyderabad": 4000,
-    "Bangalore-Pune": 6500,
-    "Kolkata-Chennai": 7500,
-    "Kolkata-Hyderabad": 8500,
-    "Chennai-Hyderabad": 3500,
-    "Chennai-Bangalore": 2000,
-    "Madurai-Chennai": 3000,
-    "Madurai-Bangalore": 3500,
-    "Hyderabad-Pune": 5500,
-    "Pune-Ahmedabad": 4500,
-    "Jaipur-Delhi": 2500,
-    "Lucknow-Kanpur": 1000,
-    "Surat-Ahmedabad": 2000,
-    "Visakhapatnam-Chennai": 4500,
-    "Indore-Bhopal": 1500,
-    "Coimbatore-Madurai": 1200,
-    "Patna-Lucknow": 3500,
-    "Vadodara-Ahmedabad": 1300,
-    "Nasik-Mumbai": 2200,
-    "Bhopal-Indore": 1500,
-    "Delhi-Noida": 800,
-    "Delhi-Gurugram": 1000,
-    "Delhi-Amritsar": 3500,
-    "Agra-Delhi": 1500,
-    "Chandigarh-Amritsar": 2000,
-    "Pune-Bangalore": 6500,
-    "Bangalore-Coimbatore": 2500,
-    "Kolkata-Patna": 3000,
-    "Chennai-Coimbatore": 2000,
-    "Kochi-Trivandrum": 1500,
-    "Kochi-Bangalore": 4000,
-    "Lucknow-Varanasi": 2000,
-    "Nagpur-Mumbai": 3500,
-    "Hyderabad-Coimbatore": 3500,
-    "Jaipur-Agra": 1800,
-    "Surat-Vadodara": 1000,
-    "Rajkot-Ahmedabad": 1200,
-    "Madurai-Kochi": 1500,
-    "Chennai-Puducherry": 2000,
-    "Hyderabad-Vijayawada": 1500,
-    "Kolkata-Ranchi": 2500,
-    "Patna-Bodhgaya": 1500,
-    "Agra-Jaipur": 2000,
-    "Mumbai-Gurugram": 4000,
-    "Delhi-Bhopal": 4500,
-    "Mumbai-Delhi": 6000,
-    "Chennai-Pune": 3000,
-    "Hyderabad-Delhi": 5000,
-    "Bangalore-Rajkot": 7000,
-    "Kolkata-Kochi": 5000,
-    "Jaipur-Bhopal": 3000,
-    "Noida-Gurugram": 500,
-    "Surat-Kochi": 6000,
-    "Nagpur-Pune": 5500,
-    "Kochi-Chennai": 2000,
-    "Rajkot-Mumbai": 7000,
-    "Indore-Vijayawada": 4000,
-    "Chennai-Kochi": 3000
-};
+    // Add other city cost mappings here...
+  };
 
-  
   const [carType, setCarType] = useState("");
   const [pickUp, setPickUp] = useState("");
   const [dropOff, setDropOff] = useState("");
   const [pickTime, setPickTime] = useState("");
   const [dropTime, setDropTime] = useState("");
   const [carImg, setCarImg] = useState("");
-
-
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -112,13 +49,12 @@ const cityCostMap = {
   const [city, setCity] = useState("");
   const [zipcode, setZipCode] = useState("");
 
-  
   useEffect(() => {
     const storedLoginStatus = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(storedLoginStatus === "true");
 
     if (storedLoginStatus === "true") {
-      axios.get('http://localhost:5050/api/bookings/user/')
+      axios.get(`${backendUrl}/api/bookings/user/`)
         .then(response => {
           console.log('Bookings:', response.data);
           setBookings(response.data);
@@ -182,15 +118,10 @@ const cityCostMap = {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5050/api/bookings', bookingData);
+      const response = await axios.post(`${backendUrl}/api/bookings`, bookingData);
       console.log('Booking confirmed:', response.data);
       setModal(false);
-      // alert("Payment Successfull")
-      
-       window.location.href = response.data.url;
-      // const sessionId = response.data.session_id; 
-      // navigate(`/success?session_id=${sessionId}`); 
-
+      window.location.href = response.data.url;
     } catch (error) {
       console.error("There was an error creating the booking!", error.response?.data || error.message);
     } finally {
@@ -315,7 +246,7 @@ const cityCostMap = {
                   <label>
                     <i className="fa-solid fa-location-dot"></i> &nbsp; Pick-up <b>*</b>
                   </label>
-                  <select value={pickUp} onChange={handlePick}>
+                  <select value={pickUp } onChange={handlePick}>
                     <option value="">Select pick-up location</option>
                     {cityOptions.map((city) => (
                       <option key={city} value={city}>{city}</option>
@@ -448,7 +379,7 @@ const cityCostMap = {
         </div>
         {/* Personal Info */}
         <div className="booking-modal__person-info">
-          <h4>Personal Information</h4>
+          <h4> Personal Information</h4>
           <form className="info-form">
             <div className="info-form__2col">
               <span>
@@ -461,7 +392,7 @@ const cityCostMap = {
                   type="text"
                   placeholder="Enter your first name"
                 ></input>
-                <p className="error -modal">This field is required.</p>
+                <p className="error-modal">This field is required.</p>
               </span>
 
               <span>
@@ -578,48 +509,42 @@ const cityCostMap = {
   );
 };
 
-
-
-
 const SuccessPage = () => {
   const [searchParams] = useSearchParams();
-  const publishableKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+  const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
   const session_id = searchParams.get('session_id');
   const [message, setMessage] = useState('Confirming payment...');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const checkPaymentStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:5050/api/bookings/confirmpayment?session_id=${session_id}`);
+            const response = await axios.get(`${backendUrl}/api/bookings/confirmpayment?session_id=${session_id}`);
             setMessage(`Payment confirmed! Booking ID: ${response.data.booking._id}`);
             alert("Payment Successful");
         } catch (error) {
             console.error('Payment confirmation failed:', error);
             setMessage('Payment confirmation failed. Please contact support.');
         } finally {
-          
             setTimeout(() => {
                 navigate("/");  
             }, 500);  
         }
     };
 
-    if (session_id) {
+    if (session_id ) {
         checkPaymentStatus();
     }
-}, [session_id, navigate]);
+  }, [session_id, navigate]);
 
   return (
-    <div className="success-page">
-       <h1>{message || "Processing your payment..."}</h1>
+    <div className="success-page ">
+      <h1>{message || "Processing your payment..."}</h1>
       {/* Display the Publishable Key if needed */}
       <p>Your Publishable Key: {publishableKey}</p>
     </div>
   );
 };
 
-
-
 export default BookCar;
-
 export { SuccessPage };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Signup = () => {
         setIsLoading(true);
 
 
-        axios.post("http://localhost:5050/api/register", {
+        axios.post(`${process.env.VITE_BACKEND_URL}/api/register`, {
             username: formData.name,
             email: formData.email,
             password: formData.password

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import './Login.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Login = () => {
         }
 
         
-        axios.post("http://localhost:5050/api/login", formData)
+        axios.post(`${process.env.VITE_BACKEND_URL}/api/login`, formData)
             .then((response) => {
                 console.log("res",response)
                 if (response.status === 200) {
