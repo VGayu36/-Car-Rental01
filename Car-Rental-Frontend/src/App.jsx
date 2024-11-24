@@ -1,14 +1,14 @@
 import "./styles.css";
 import About from "./pages/About";
-import Home from "./Pages/Home";
+import Home from "./pages/Home";
 import Navbar from "../src/components/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Models from "./Pages/Models";
-import TestimonialsPage from "./Pages/TestimonialsPage";
-import Team from "./Pages/Team";
-import Contact from "./Pages/Contact";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
+import Models from "./pages/Models";
+import TestimonialsPage from "./pages/TestimonialsPage";
+import Team from "./pages/Team";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
