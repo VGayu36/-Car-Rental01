@@ -1,15 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'  // Add path to help resolve the directory
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // Sets '@' as alias for 'src'
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   build: {
-    outDir: 'publish', // This sets the output directory to 'publish'
+    outDir: 'publish', // Specify your output directory for build
   }
 })
