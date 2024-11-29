@@ -9,7 +9,7 @@ import CarBmw from "../images/cars-big/bmw320.jpg";
 import CarMercedes from "../images/cars-big/benz.jpg";
 import CarPassat from "../images/cars-big/passatcc.jpg";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const BookCar = () => {
   const [modal, setModal] = useState(false);
@@ -29,9 +29,71 @@ const BookCar = () => {
   ];
 
   const cityCostMap = {
-    // Your city cost mapping
-    "Mumbai-Bangalore": 8000,
-    // Add other city cost mappings here...
+   "Mumbai-Bangalore": 8000,
+    "Mumbai-Kolkata": 12000,
+    "Mumbai-Chennai": 9500,
+    "Mumbai-Hyderabad": 7000,
+    "Mumbai-Pune": 1500,
+    "Mumbai-Ahmedabad": 3000,
+    "Bangalore-Chennai": 3100,
+    "Bangalore-Hyderabad": 4000,
+    "Bangalore-Pune": 6500,
+    "Kolkata-Chennai": 7500,
+    "Kolkata-Hyderabad": 8500,
+    "Chennai-Hyderabad": 3500,
+    "Chennai-Bangalore": 2000,
+    "Madurai-Chennai": 3000,
+    "Madurai-Bangalore": 3500,
+    "Hyderabad-Pune": 5500,
+    "Pune-Ahmedabad": 4500,
+    "Jaipur-Delhi": 2500,
+    "Lucknow-Kanpur": 1000,
+    "Surat-Ahmedabad": 2000,
+    "Visakhapatnam-Chennai": 4500,
+    "Indore-Bhopal": 1500,
+    "Coimbatore-Madurai": 1200,
+    "Patna-Lucknow": 3500,
+    "Vadodara-Ahmedabad": 1300,
+    "Nasik-Mumbai": 2200,
+    "Bhopal-Indore": 1500,
+    "Delhi-Noida": 800,
+    "Delhi-Gurugram": 1000,
+    "Delhi-Amritsar": 3500,
+    "Agra-Delhi": 1500,
+    "Chandigarh-Amritsar": 2000,
+    "Pune-Bangalore": 6500,
+    "Bangalore-Coimbatore": 2500,
+    "Kolkata-Patna": 3000,
+    "Chennai-Coimbatore": 2000,
+    "Kochi-Trivandrum": 1500,
+    "Kochi-Bangalore": 4000,
+    "Lucknow-Varanasi": 2000,
+    "Nagpur-Mumbai": 3500,
+    "Hyderabad-Coimbatore": 3500,
+    "Jaipur-Agra": 1800,
+    "Surat-Vadodara": 1000,
+    "Rajkot-Ahmedabad": 1200,
+    "Madurai-Kochi": 1500,
+    "Chennai-Puducherry": 2000,
+    "Hyderabad-Vijayawada": 1500,
+    "Kolkata-Ranchi": 2500,
+    "Patna-Bodhgaya": 1500,
+    "Agra-Jaipur": 2000,
+    "Mumbai-Gurugram": 4000,
+    "Delhi-Bhopal": 4500,
+    "Mumbai-Delhi": 6000,
+    "Chennai-Pune": 3000,
+    "Hyderabad-Delhi": 5000,
+    "Bangalore-Rajkot": 7000,
+    "Kolkata-Kochi": 5000,
+    "Jaipur-Bhopal": 3000,
+    "Noida-Gurugram": 500,
+    "Surat-Kochi": 6000,
+    "Nagpur-Pune": 5500,
+    "Kochi-Chennai": 2000,
+    "Rajkot-Mumbai": 7000,
+    "Indore-Vijayawada": 4000,
+    "Chennai-Kochi": 3000
   };
 
   const [carType, setCarType] = useState("");
@@ -54,7 +116,7 @@ const BookCar = () => {
     setIsLoggedIn(storedLoginStatus === "true");
 
     if (storedLoginStatus === "true") {
-      axios.get(`${backendUrl}/api/bookings/user/`)
+      axios.get(`${process.env.VITE_BACKEND_URL}/api/bookings/user/`)
         .then(response => {
           console.log('Bookings:', response.data);
           setBookings(response.data);
@@ -118,7 +180,7 @@ const BookCar = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${backendUrl}/api/bookings`, bookingData);
+      const response = await axios.post(`${process.env.VITE_BACKEND_URL}/api/bookings`, bookingData);
       console.log('Booking confirmed:', response.data);
       setModal(false);
       window.location.href = response.data.url;
@@ -519,7 +581,7 @@ const SuccessPage = () => {
   useEffect(() => {
     const checkPaymentStatus = async () => {
         try {
-            const response = await axios.get(`${backendUrl}/api/bookings/confirmpayment?session_id=${session_id}`);
+            const response = await axios.get(`${process.env.VITE_BACKEND_URL}/api/bookings/confirmpayment?session_id=${session_id}`);
             setMessage(`Payment confirmed! Booking ID: ${response.data.booking._id}`);
             alert("Payment Successful");
         } catch (error) {
