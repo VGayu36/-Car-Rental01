@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css';
-// const backendUrl = import.meta.env.VITE_BACKEND_URL;
-// const backendUrl = process.env.VITE_BACKEND_URL;
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -40,13 +38,13 @@ const Signup = () => {
 
         
         const { password, confirmPassword, ...formDataWithoutPasswords } = formData;
-        console.log("Form Data: ", formDataWithoutPasswords);
+      
 
         
         setIsLoading(true);
 
 
-        axios.post(`${process.env.VITE_BACKEND_URL}/api/register`, {
+        axios.post(`https://car-rental01.onrender.com/api/register`, {
             username: formData.name,
             email: formData.email,
             password: formData.password
@@ -64,7 +62,6 @@ const Signup = () => {
             .catch((error) => {
                 console.error("Error during signup request", error);
                 if (error.response && error.response.data) {
-                    console.log(error.response.data); 
                     if (error.response.data.message === "User or email already exists") {
                         setError("The email is already registered. Please use a different email.");
                     } else {

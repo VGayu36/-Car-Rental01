@@ -116,9 +116,8 @@ const BookCar = () => {
     setIsLoggedIn(storedLoginStatus === "true");
 
     if (storedLoginStatus === "true") {
-      axios.get(`${process.env.VITE_BACKEND_URL}/api/bookings/user/`)
+      axios.get(`https://car-rental01.onrender.com/api/bookings/user/`)
         .then(response => {
-          console.log('Bookings:', response.data);
           setBookings(response.data);
         })
         .catch(error => {
@@ -180,8 +179,7 @@ const BookCar = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.VITE_BACKEND_URL}/api/bookings`, bookingData);
-      console.log('Booking confirmed:', response.data);
+      const response = await axios.post(`https://car-rental01.onrender.com/api/bookings`, bookingData);
       setModal(false);
       window.location.href = response.data.url;
     } catch (error) {
@@ -581,7 +579,7 @@ const SuccessPage = () => {
   useEffect(() => {
     const checkPaymentStatus = async () => {
         try {
-            const response = await axios.get(`${process.env.VITE_BACKEND_URL}/api/bookings/confirmpayment?session_id=${session_id}`);
+            const response = await axios.get(`https://car-rental01.onrender.com/api/bookings/confirmpayment?session_id=${session_id}`);
             setMessage(`Payment confirmed! Booking ID: ${response.data.booking._id}`);
             alert("Payment Successful");
         } catch (error) {

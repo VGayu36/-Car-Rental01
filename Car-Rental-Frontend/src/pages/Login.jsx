@@ -29,14 +29,13 @@ const Login = () => {
         }
 
         
-        axios.post(`${process.env.VITE_BACKEND_URL}/api/login`, formData)
+        axios.post(`https://car-rental01.onrender.com/api/login`, formData)
             .then((response) => {
-                console.log("res",response)
+               
                 if (response.status === 200) {
                     
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userId', response.data.userId);  
-                    console.log("Login successful", response.data);
                     alert("Login successful");
 
                 
